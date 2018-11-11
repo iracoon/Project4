@@ -58,24 +58,32 @@ public final class StudentAttackerController implements AttackerController
 		{
 			if(!powerPills.isEmpty() && me.getDirection() == ghost1.getDirection())
 			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			if(powerPills.isEmpty() && me.getDirection() == ghost1.getDirection())
+			{action = me.getNextDir(me.getTargetNode(pills, true), true);}
 			else {action =  me.getNextDir(ghost1.getLocation(), false);}
 		}
 		else if(me.getLocation().getPathDistance(ghost2.getLocation()) <8 && ghost2.getLairTime() == 0 && !ghost2.isVulnerable())
 		{
 			if(!powerPills.isEmpty() && me.getDirection() == ghost2.getDirection())
 			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			if(powerPills.isEmpty() && me.getDirection() == ghost2.getDirection())
+			{action = me.getNextDir(me.getTargetNode(pills, true), true);}
 			else {action =  me.getNextDir(ghost2.getLocation(), false);}
 		}
 		else if(me.getLocation().getPathDistance(ghost3.getLocation()) <8 && ghost3.getLairTime() == 0 && !ghost3.isVulnerable())
 		{
 			if(!powerPills.isEmpty() && me.getDirection() == ghost3.getDirection())
 			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			if(powerPills.isEmpty() && me.getDirection() == ghost3.getDirection())
+			{action = me.getNextDir(me.getTargetNode(pills, true), true);}
 			else {action =  me.getNextDir(ghost3.getLocation(), false);}
 		}
 		else if(me.getLocation().getPathDistance(ghost4.getLocation()) <8 && ghost4.getLairTime() == 0 && !ghost4.isVulnerable())
 		{
 			if(!powerPills.isEmpty() && me.getDirection() == ghost4.getDirection())
 			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			if(powerPills.isEmpty() && me.getDirection() == ghost4.getDirection())
+			{action = me.getNextDir(me.getTargetNode(pills, true), true);}
 			else {action =  me.getNextDir(ghost4.getLocation(), false);}
 		}
 
