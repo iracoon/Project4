@@ -23,7 +23,8 @@ public final class StudentAttackerController implements AttackerController
 
 		List<Defender> ghosts = game.getDefenders();
 		List<Node> ghostsTempVulnerable = new ArrayList<>();
-		List<Node> ghostsTempAttack = new ArrayList<>();
+		List<Node> ghostsSuperAttack = new ArrayList<>();
+		List<Defender> SuperAttackObjects = new ArrayList<>();
 
 
 		Defender ghost1 = ghosts.get(0);
@@ -41,37 +42,43 @@ public final class StudentAttackerController implements AttackerController
 		{
 			if(ghosts.get(i).isVulnerable())
 			{ ghostsTempVulnerable.add(ghosts.get(i).getLocation());}
-			else {ghostsTempAttack.add(ghosts.get(i).getLocation());}
-		}
 
+			if(me.getLocation().getPathDistance(ghosts.get(i).getLocation()) <24 && ghosts.get(i).getLairTime() == 0 && !ghosts.get(i).isVulnerable())
+			{
+				ghostsSuperAttack.add(ghosts.get(i).getLocation());
+				SuperAttackObjects.add(ghosts.get(i));
+			}
+		}
 
 		if (ghostsTempVulnerable.size() == 4) {
 			action = me.getNextDir(me.getTargetNode(ghostLocations, true), true);
 		}
-		else if(me.getLocation().getPathDistance(ghost1.getLocation()) <24 && ghost1.getLairTime() == 0)
+
+		else if(me.getLocation().getPathDistance(ghost1.getLocation()) <8 && ghost1.getLairTime() == 0 && !ghost1.isVulnerable())
 		{
-			if(me.getDirection() == ghost1.getReverse()){ action = me.getReverse();}
-			else if(!powerPills.isEmpty() && ghostsTempVulnerable.isEmpty()){action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
-			else {action = me.getNextDir(me.getTargetNode(pills, true), true);}
+			if(!powerPills.isEmpty() && me.getDirection() == ghost1.getDirection())
+			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			else {action =  me.getNextDir(ghost1.getLocation(), false);}
 		}
-		else if(me.getLocation().getPathDistance(ghost2.getLocation()) <24 && ghost2.getLairTime() == 0)
+		else if(me.getLocation().getPathDistance(ghost2.getLocation()) <8 && ghost2.getLairTime() == 0 && !ghost2.isVulnerable())
 		{
-			if(me.getDirection() == ghost2.getReverse()){ action = me.getReverse();}
-			else if(!powerPills.isEmpty() && ghostsTempVulnerable.isEmpty()){action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
-			else {action = me.getNextDir(me.getTargetNode(pills, true), true);}
+			if(!powerPills.isEmpty() && me.getDirection() == ghost2.getDirection())
+			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			else {action =  me.getNextDir(ghost2.getLocation(), false);}
 		}
-		else if(me.getLocation().getPathDistance(ghost3.getLocation()) <24 && ghost3.getLairTime() == 0)
+		else if(me.getLocation().getPathDistance(ghost3.getLocation()) <8 && ghost3.getLairTime() == 0 && !ghost3.isVulnerable())
 		{
-			if(me.getDirection() == ghost3.getReverse()){ action = me.getReverse();}
-			else if(!powerPills.isEmpty() && ghostsTempVulnerable.isEmpty()){action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
-			else {action = me.getNextDir(me.getTargetNode(pills, true), true);}
+			if(!powerPills.isEmpty() && me.getDirection() == ghost3.getDirection())
+			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			else {action =  me.getNextDir(ghost3.getLocation(), false);}
 		}
-		else if(me.getLocation().getPathDistance(ghost4.getLocation()) <24 &&  ghost4.getLairTime() == 0)
+		else if(me.getLocation().getPathDistance(ghost4.getLocation()) <8 && ghost4.getLairTime() == 0 && !ghost4.isVulnerable())
 		{
-			if(me.getDirection() == ghost4.getReverse()){ action = me.getReverse();}
-			else if(!powerPills.isEmpty() && ghostsTempVulnerable.isEmpty()){action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
-			else {action = me.getNextDir(me.getTargetNode(pills, true), true);}
+			if(!powerPills.isEmpty() && me.getDirection() == ghost4.getDirection())
+			{action = me.getNextDir(me.getTargetNode(powerPills, true), true);}
+			else {action =  me.getNextDir(ghost4.getLocation(), false);}
 		}
+
 		else if(ghostsTempVulnerable.size() >0)
 		{
 			action =  me.getNextDir(me.getTargetNode(ghostsTempVulnerable, true), true);
@@ -83,7 +90,8 @@ public final class StudentAttackerController implements AttackerController
 
 
 		ghostsTempVulnerable.clear();
-		ghostsTempAttack.clear();
+		ghostsSuperAttack.clear();
+		SuperAttackObjects.clear();
 		return action;
 	}
 }
